@@ -106,8 +106,14 @@ function showFlashcardsInSlide(flashcards, callback) {
       flashcardElement.classList.add("active");
     }
     flashcardElement.innerHTML = `
-        <div class="slide_item_flashcard active term">${flashcard.term}</div>
-        <div class="slide_item_flashcard definition">${flashcard.definition}</div>
+        <div class="slide_item_flashcard active term">
+              ${flashcard.term}
+              <i class="fa-solid fa-volume-high slide_item_flashcard_icon"></i>
+        </div>
+        <div class="slide_item_flashcard definition">
+              ${flashcard.definition}
+              <i class="fa-solid fa-volume-high slide_item_flashcard_icon"></i>
+        </div>
         `;
     flashcardSlide.appendChild(flashcardElement);
   }
@@ -117,6 +123,26 @@ function showFlashcardsInSlide(flashcards, callback) {
     setTimeout(callback, 0);
   }
 }
+
+function soundForWord(){
+  var clickBell = document.querySelectorAll('.slide_item_flashcard_icon');
+  clickBell.forEach(bell => {
+      bell.addEventListener('click', function(event){
+        const speech = new SpeechSynthesisUtterance();
+        speech.text = document.querySelector('.flashcard_wrap.active').querySelector('.slide_item_flashcard.active').textContent;
+        speech.voice = speechSynthesis.getVoices().find(voice => voice.lang === 'en-US');
+        // Replace 'en-US' with the language code of the desired voice
+
+        // Optional: Set additional properties
+        speech.volume = 1;    // Volume range: 0 to 1
+        speech.rate = 1;      // Speed rate range: 0.1 to 10
+        speech.pitch = 2;     // Pitch range: 0 to 2
+        window.speechSynthesis.speak(speech);
+        event.stopPropagation();
+      });
+  });
+}
+
 
 // Hàm lấy tất cả các flashcards từ slide
 function HanderAllFlashcard() {
@@ -130,27 +156,57 @@ function HanderAllFlashcard() {
   });
 }
 
+
 // Xử lý sự kiện "DOMContentLoaded"
-document.addEventListener("DOMContentLoaded", function() {
-  var flashcards = getFlashcardsFromLocalStorage();
-  showFlashcardsInSlide(flashcards, function() {
-    ShiftingSlideFunction();
-  });
-});
 
 // Hàm xóa toàn bộ flashcards trong localStorage
+// Gọi hàm để reset localStorage
+// resetLocalStorage();
 function resetLocalStorage() {
   localStorage.removeItem("flashcards");
 }
 
-// Gọi hàm để reset localStorage
-// resetLocalStorage();
+//Xử lý không bấm được chuyển page
+function Inuseal(index, length){
+  if(length==1){
+    var backInuseal = document.querySelector('.shiftingSlide_item.back');
+      backInuseal.classList.add('inuseal');
+      var nextInuseal = document.querySelector('.shiftingSlide_item.next');
+    nextInuseal.classList.add('inuseal');
+  }
+  if(index==0){
+      var backInuseal = document.querySelector('.shiftingSlide_item.back');
+      backInuseal.classList.add('inuseal');
+  }
+  if(index==length-1){
+    var nextInuseal = document.querySelector('.shiftingSlide_item.next');
+    nextInuseal.classList.add('inuseal');
+  }
+  if(index==1){
+    var backInuseal = document.querySelector('.shiftingSlide_item.inuseal');
+    if(backInuseal!=null) backInuseal.classList.remove('inuseal');
+  }
+  if(index==length-2){
+    var nextInuseal = document.querySelector('.shiftingSlide_item.inuseal');
+    if(nextInuseal!=null) nextInuseal.classList.remove('inuseal');
+  }
+}
 
+//GetPageFlashcard 
+
+function getPageFlashcard(indexPage, maxPage){
+    var getFageHTML = document.querySelector('.page_flashcard');
+    getFageHTML.innerHTML = `<span> ${indexPage+1}/${maxPage} </span>`;
+}
+
+//Chuyển đổi pageFlashcard
 function ShiftingSlideFunction(){
   var shiftingSlides = document.querySelectorAll('.shiftingSlide_item');
   var index = 0;
   HanderAllFlashcard();
   var flashcards = getFlashcardsFromLocalStorage();
+  Inuseal(0, flashcards.length);
+  getPageFlashcard(0, flashcards.length);
   shiftingSlides.forEach(slide => {
     slide.addEventListener('click', function(){
       var getSlide = document.querySelectorAll('.flashcard_wrap');
@@ -163,7 +219,9 @@ function ShiftingSlideFunction(){
               getSlideActive.classList.remove('active');
               getSlide[index].classList.add('active');
             }
-            else index--;
+            else{
+              index--;
+            }
             HanderAllFlashcard();
           }
       }
@@ -181,9 +239,18 @@ function ShiftingSlideFunction(){
             HanderAllFlashcard();
           }
       }
+      getPageFlashcard(index, flashcards.length);
+      Inuseal(index, flashcards.length);
     });
 });
 }
+document.addEventListener("DOMContentLoaded", function() {
+  var flashcards = getFlashcardsFromLocalStorage();
+  showFlashcardsInSlide(flashcards, function() {
+    soundForWord();
+    ShiftingSlideFunction();
+  });
+});
 
 
 

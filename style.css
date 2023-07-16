@@ -142,7 +142,7 @@
 }
 .body_remain_item_img{
     
-}
+}   
 .goal_number{
     position: absolute;
     top:57%;
@@ -391,6 +391,14 @@
     display: flex;
     justify-content: space-around;
 }
+@keyframes scaleAnimation{
+    from{
+        transform: scale(0.9);
+    }
+    to{
+        transform: scale(1);
+    }
+}
 .flashcard_wrap {
     position: relative;
     height: 99%;
@@ -398,6 +406,8 @@
     display: none;
     overflow: hidden;
     perspective: 1000px;
+    animation: scaleAnimation 0.2s ease-in;
+    animation-fill-mode: forwards;
 }
 .slide_item_flashcard {
     top:20px;
@@ -439,10 +449,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #58ea27;
-    margin: 0 15px;
+    background-color: #fff;
+    margin: 0 30px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
 }
-  
+.shiftingSlide_item:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.4);
+}
+.shiftingSlide_item.inuseal{
+    box-shadow: 0 0 0 0;
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.1);   
+}
+.page_flashcard{
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+.slide_item_flashcard_icon{
+    z-index: 1;
+    position: absolute;
+    top: 10px;;
+    right:30px;
+    font-size:1.8rem;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+}
+.slide_item_flashcard_icon:hover{
+    cursor: pointer;
+    color:rgb(108, 108, 247)
+}
