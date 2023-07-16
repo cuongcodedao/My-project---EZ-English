@@ -149,6 +149,7 @@ function resetLocalStorage() {
 function ShiftingSlideFunction(){
   var shiftingSlides = document.querySelectorAll('.shiftingSlide_item');
   var index = 0;
+  HanderAllFlashcard();
   var flashcards = getFlashcardsFromLocalStorage();
   shiftingSlides.forEach(slide => {
     slide.addEventListener('click', function(){
@@ -156,6 +157,7 @@ function ShiftingSlideFunction(){
       var getSlideActive = document.querySelector('.flashcard_wrap.active');
       if(slide.classList.contains('next')){
           if(index>=0 && index<flashcards.length){
+            HanderAllFlashcard();
             index++;
             getSlideActive.classList.remove('active');
             getSlide[index].classList.add('active');
@@ -164,17 +166,16 @@ function ShiftingSlideFunction(){
       }
       else{
           if(index>=0 && index<flashcards.length){
+            HanderAllFlashcard();
             index--;
             getSlideActive.classList.remove('active');
             getSlide[index].classList.add('active');
             HanderAllFlashcard();
-            var cards = getSlide.querySelector('.slide_item_flashcard.active');
-            console.log(cards);
-            cards.classList.remove('active');
           }
       }
     });
 });
 }
+
 
 
