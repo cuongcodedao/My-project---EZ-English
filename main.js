@@ -159,8 +159,11 @@ function ShiftingSlideFunction(){
           if(index>=0 && index<flashcards.length){
             HanderAllFlashcard();
             index++;
-            getSlideActive.classList.remove('active');
-            getSlide[index].classList.add('active');
+            if(index!=flashcards.length){
+              getSlideActive.classList.remove('active');
+              getSlide[index].classList.add('active');
+            }
+            else index--;
             HanderAllFlashcard();
           }
       }
@@ -168,8 +171,13 @@ function ShiftingSlideFunction(){
           if(index>=0 && index<flashcards.length){
             HanderAllFlashcard();
             index--;
-            getSlideActive.classList.remove('active');
-            getSlide[index].classList.add('active');
+            if(index!=-1){
+              getSlideActive.classList.remove('active');
+              getSlide[index].classList.add('active');
+            }
+            else{
+              index++;
+            }
             HanderAllFlashcard();
           }
       }
