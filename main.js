@@ -59,11 +59,6 @@ function getFlashcardsFromLocalStorage() {
     localStorage.setItem("flashcards", flashcardsJSON);
   }
   
-  // Gọi hàm để hiển thị flashcards trong slide khi trang web được tải
-  // window.addEventListener("DOMContentLoaded", function() {
-  //   var flashcards = getFlashcardsFromLocalStorage();
-  //   showFlashcardsInSlide(flashcards);
-  // });
   
 // Lấy phần tử HTML cần sử dụng
 var addWordButton = document.querySelector(".add_word_submit");
@@ -86,8 +81,7 @@ addWordButton.addEventListener("click", function() {
     var flashcards = getFlashcardsFromLocalStorage();
     flashcards.push(flashcard);
     saveFlashcardsToLocalStorage(flashcards);
-    showFlashcardsInSlide(flashcards);
-
+    showCoupleWordInSlide(flashcards, flashcards.length); 
     englishWordInput.value = "";
     vietnameseWordInput.value = "";
   }
@@ -97,10 +91,12 @@ addWordButton.addEventListener("click", function() {
 // Hàm hiển thị flashcards trong slide và gọi callback khi hoàn thành
 
 function showFlashcardsInSlide(flashcards, callback) {
-  // flashcardSlide.innerHTML="";
+  var listWordAddedWrap = document.querySelector('.list_word_added_wrap');
   for (var i = 0; i < flashcards.length; i++) {
     var flashcard = flashcards[i];
     var flashcardElement = document.createElement("div");
+    var coupleWordElement = document.createElement("div");
+    coupleWordElement.classList.add("coupleWordElement_wrap");
     flashcardElement.classList.add("flashcard_wrap");
     if (i === 0) {
       flashcardElement.classList.add("active");
@@ -115,13 +111,42 @@ function showFlashcardsInSlide(flashcards, callback) {
               <i class="fa-solid fa-volume-high slide_item_flashcard_icon"></i>
         </div>
         `;
+    coupleWordElement.innerHTML = `
+        <div class="box_word">
+              <i class="fa-solid fa-pen penOfWord_left"></i>
+              ${flashcard.term}
+        </div>
+        <div class="box_word">
+              ${flashcard.definition}
+              <i class="fa-solid fa-pen penOfWord_right"></i>
+        </div>
+        `;
     flashcardSlide.appendChild(flashcardElement);
+    listWordAddedWrap.appendChild(coupleWordElement);
   }
 
   if (typeof callback === "function") {
     // Gọi callback sau khi flashcards được hiển thị trong slide
     setTimeout(callback, 0);
   }
+}
+
+function showCoupleWordInSlide(flashcards, indexCurrent) {
+  var listWordAddedWrap = document.querySelector('.list_word_added_wrap');
+    var flashcard = flashcards[indexCurrent-1];
+    var coupleWordElement = document.createElement("div");
+    coupleWordElement.classList.add("coupleWordElement_wrap");
+    coupleWordElement.innerHTML = `
+        <div class="box_word">
+              <i class="fa-solid fa-pen penOfWord_left"></i>
+              ${flashcard.term}
+        </div>
+        <div class="box_word">
+              ${flashcard.definition}
+              <i class="fa-solid fa-pen penOfWord_right"></i>
+        </div>
+        `;
+    listWordAddedWrap.appendChild(coupleWordElement);
 }
 
 function soundForWord(){
@@ -154,16 +179,6 @@ function HanderAllFlashcard() {
     });
     event.stopPropagation();
   });
-}
-
-
-// Xử lý sự kiện "DOMContentLoaded"
-
-// Hàm xóa toàn bộ flashcards trong localStorage
-// Gọi hàm để reset localStorage
-// resetLocalStorage();
-function resetLocalStorage() {
-  localStorage.removeItem("flashcards");
 }
 
 //Xử lý không bấm được chuyển page
@@ -242,8 +257,21 @@ function ShiftingSlideFunction(){
       getPageFlashcard(index, flashcards.length);
       Inuseal(index, flashcards.length);
     });
-});
+}); 
 }
+function reload(){
+  location.reload();
+ }
+function resetLocalStorage(reload) {
+  localStorage.removeItem("flashcards");
+}
+ var reloadBtn = document.querySelector('.add_word_submit.comfirm');
+ reloadBtn.addEventListener('click', reload);
+ var deleteAllBtn = document.querySelector('.add_word_submit.delete_all');
+ deleteAllBtn.addEventListener('click', function(){
+  resetLocalStorage();
+  reload();
+ });
 document.addEventListener("DOMContentLoaded", function() {
   var flashcards = getFlashcardsFromLocalStorage();
   showFlashcardsInSlide(flashcards, function() {
@@ -251,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
     ShiftingSlideFunction();
   });
 });
+// Them tu moi
 
 
 

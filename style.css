@@ -238,7 +238,7 @@
     min-height: 530px;
     width:1000px;
     background-color: #fff;
-
+    z-index: 10;
     position: relative;
 }
 .modal_course_close{
@@ -324,6 +324,7 @@
     margin-right:50px;
     margin-bottom:20px;
     display:none;
+    position: relative;
 }
 .body_method.active{
     display: block;
@@ -342,7 +343,7 @@
     
 }
 .new_voca{
-    margin-top:20%;
+    /* margin-top:20%; */
     font-size: 1.8rem;
     padding-left:16px;
     font-weight: 500;
@@ -351,25 +352,20 @@
     height:50px;
     width: 350px;
 }   
-.add_word_submit{
-    margin-top:60px;
+.add_word_submit{   
+    margin:30px 20px;
     border-radius: 20px;
     height: 50px;
     width: 170px;
-    background-color: #99e089;
+    background-color: #aae49a;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.8rem;
     font-weight: 600;
 }
-.add_word_submit_text{
-
-}
 .heading_new_word{
     display: flex;
-    height: 100%;
-    width: 100%;
     justify-content: center;
     align-items: center;
 }
@@ -481,4 +477,56 @@
 .slide_item_flashcard_icon:hover{
     cursor: pointer;
     color:rgb(108, 108, 247)
+}
+
+/* them tu */
+
+.addWord_wrap{
+    width:100%;
+    height:400px;
+    overflow: scroll;
+}
+.coupleWordElement_wrap{
+    position: relative;
+    box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.1);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    justify-content: center;
+    margin: 40px 20px;
+    border-radius: 12px;
+}
+.box_word{
+    border-right: 2px solid #81fa66;
+    border-left: 2px solid #81fa66;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    font-size: 1.8rem;
+    font-weight: 500;
+    height:100%;
+    width: 350px;
+}
+.penOfWord_left{
+    position: absolute;
+    left:30px;
+}
+.penOfWord_right{
+    position: absolute;
+    right: 30px;
+}
+
+.add_word_submit:hover{
+    cursor: pointer;
+    background-color: #81fa66;
+}
+.confirm_submit_word{
+    height: 50px;
+    width: 70px;
+    background-color: #0c100c;
+}
+.wrap_add_word_submit{
+    text-align:center;
 }
