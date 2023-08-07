@@ -195,28 +195,28 @@
             NEW WORD
         </h1>
         <div class="method_learns">
-            <div class="method_learn_item active">
+            <div class="method_learn_item flashcard active">
                 <span class="method_text">
                     Flashcards
                 </span>
             </div>
-            <div class="method_learn_item">
+            <div class="method_learn_item learn">
                 <span class="method_text">
                     Học
                 </span>
             </div>
-            <div class="method_learn_item">
+            <div class="method_learn_item test">
                 <span class="method_text">
                     Kiểm tra
                 </span>
             </div>
 
-            <div class="method_learn_item">
+            <div class="method_learn_item match">
                 <span class="method_text">
                     Ghép thẻ
                 </span>
             </div>
-            <div class="method_learn_item">
+            <div class="method_learn_item fix">
                 <span class="method_text">
                     Sửa
                 </span>
@@ -239,7 +239,32 @@
                 </div>
             </div>
             <div class="body_method learn">
-
+                <div class="learn_container">
+                    <div class="card_question">
+                        <span class="definite_heading">
+                            Định nghĩa: 
+                        </span>
+                        <div class="description_question">
+                            
+                        </div>
+                    </div>
+                    <div class="noticeStatus">
+                    </div>
+                    <div class="card_answers">
+                        <span class="card_answers_text">
+                            Chọn câu trả lời đúng:
+                        </span>
+                        <progress max="10" value="0" class="progressLearn"></progress>
+                        <div class="design_card_answers top">
+                            <div class="card_answer_item a1"> </div>
+                            <div class="card_answer_item a2"> </div>
+                        </div>
+                        <div class="design_card_answers bottom">
+                            <div class="card_answer_item a3"></div>
+                            <div class="card_answer_item a4"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="body_method test">
                 
@@ -280,11 +305,24 @@
                                 DELETE ALL
                             </span>
                         </div>
-                    </div
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="modalLearnAgain">
+    <div class="modalLearnAgain_container">
+        <span class="title_modalLearnAgain">
+            Chúc mừng bạn đã hoàn thành!
+        </span>
+        <div class="button_modalLearnAgain">
+            <div class="learnAgain_btn return">
+                Quay lại
+            </div>
+        </div>
+    </div>
+</div>
 <script src="main.js"></script>
+<script src="app.js"> </script>
 </html>

@@ -1,3 +1,4 @@
+
 var courses = document.querySelectorAll(".body_course");
 for(var course of courses){
     function subClass(){
@@ -186,24 +187,26 @@ function Inuseal(index, length){
   if(length==1){
     var backInuseal = document.querySelector('.shiftingSlide_item.back');
       backInuseal.classList.add('inuseal');
-      var nextInuseal = document.querySelector('.shiftingSlide_item.next');
-    nextInuseal.classList.add('inuseal');
-  }
-  if(index==0){
-      var backInuseal = document.querySelector('.shiftingSlide_item.back');
-      backInuseal.classList.add('inuseal');
-  }
-  if(index==length-1){
     var nextInuseal = document.querySelector('.shiftingSlide_item.next');
     nextInuseal.classList.add('inuseal');
   }
-  if(index==1){
-    var backInuseal = document.querySelector('.shiftingSlide_item.inuseal');
-    if(backInuseal!=null) backInuseal.classList.remove('inuseal');
-  }
-  if(index==length-2){
-    var nextInuseal = document.querySelector('.shiftingSlide_item.inuseal');
+  else{
+    if(index==0){
+      var backInuseal = document.querySelector('.shiftingSlide_item.back');
+      backInuseal.classList.add('inuseal');
+    }
+    if(index==1){
+        var backInuseal = document.querySelector('.shiftingSlide_item.back.inuseal');
+        if(backInuseal!=null) backInuseal.classList.remove('inuseal');
+    }
+    if(index==length-1){
+      var nextInuseal = document.querySelector('.shiftingSlide_item.next');
+      nextInuseal.classList.add('inuseal');
+   }
+    else if(index==length-2){
+    var nextInuseal = document.querySelector('.shiftingSlide_item.next.inuseal');
     if(nextInuseal!=null) nextInuseal.classList.remove('inuseal');
+   }
   }
 }
 
@@ -279,7 +282,99 @@ document.addEventListener("DOMContentLoaded", function() {
     ShiftingSlideFunction();
   });
 });
-// Them tu moi
 
-
-
+// Hoc tu
+var mark = [];
+for(var i =0;i<100;i++){
+  mark.push(i);
+  mark[i]=0;
+}
+var indextest = 0;
+var indexP = 1;
+function learnActive(){
+  var getLearnBtn = document.querySelector('.method_learn_item.learn');
+  var getAnswerBtns = document.querySelectorAll('.card_answer_item');
+  var key;
+  var flashcards = getFlashcardsFromLocalStorage();
+  document.querySelector('.progressLearn').setAttribute('max', flashcards.length);
+  function showLearnTest(){
+    var array = [];
+    for(var i=0;i<flashcards.length;i++){
+      array.push(i);
+    }
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+    do {
+      shuffleArray(array);
+      if(mark[array[0]]==0){
+        indextest++;
+        mark[array[0]]=1;
+        break;
+      }
+    }while(indextest<flashcards.length);
+    var array1 = array.slice(0, 4);
+    shuffleArray(array1);
+    key = flashcards[array[0]].definition;
+    document.querySelector('.description_question').textContent = `${flashcards[array[0]].term}`;
+    document.querySelector('.card_answer_item.a1').textContent = `${flashcards[array1[0]].definition}`;
+    document.querySelector('.card_answer_item.a2').textContent = `${flashcards[array1[1]].definition}`;
+    document.querySelector('.card_answer_item.a3').textContent = `${flashcards[array1[2]].definition}`;
+    document.querySelector('.card_answer_item.a4').textContent = `${flashcards[array1[3]].definition}`;
+  };
+  getLearnBtn.addEventListener('click', showLearnTest);
+  getAnswerBtns.forEach((answerBtn, index) => {
+    answerBtn.addEventListener("click", function(){  
+      var getActiveAnswer = document.querySelector('.incorrect');
+      var getNoticeStatus = document.querySelector('.noticeStatus');
+      getNoticeStatus.classList.add('active');
+      if(getActiveAnswer != null) getActiveAnswer.classList.remove('incorrect');
+      if(answerBtn.textContent == key) {
+        document.body.style.pointerEvents = 'none';
+        function myFunction() {
+          document.querySelector(".progressLearn").value = indexP;    
+          indexP++;                                   
+        }
+        myFunction();
+        answerBtn.classList.add('correct');
+        getNoticeStatus.textContent = 'Exactly';
+        if(indexP!=flashcards.length+1){
+          setTimeout(handler =>{
+            document.body.style.pointerEvents = 'auto';
+            answerBtn.classList.remove('correct');
+            getNoticeStatus.textContent = '';
+            getNoticeStatus.classList.remove('active');
+            showLearnTest()
+          }, 1000);
+        }
+        else{
+          document.body.style.pointerEvents = 'auto';
+          setTimeout(handler =>{
+            document.querySelector('.modalLearnAgain').classList.add('active');
+          }, 1500);
+          var learnAgainBtn = document.querySelector('.button_modalLearnAgain');
+          learnAgainBtn.addEventListener('click', function(){
+            indexP=0;
+            myFunction();
+            document.querySelector('.progressLearn').setAttribute('value', 0);
+            getNoticeStatus.classList.remove('active');
+            answerBtn.classList.remove('correct');
+            document.querySelector('.modalLearnAgain').classList.remove('active');
+            showLearnTest();
+          });
+        }
+      }
+      else{
+        getNoticeStatus.textContent = 'Answer Again';
+        answerBtn.classList.add('incorrect');
+        setTimeout(handler =>{
+          getNoticeStatus.classList.remove('active');
+        }, 1200);
+      }
+    });
+  });
+}
+learnActive();
