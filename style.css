@@ -142,7 +142,7 @@
 }
 .body_remain_item_img{
     
-}
+}   
 .goal_number{
     position: absolute;
     top:57%;
@@ -217,6 +217,53 @@
     left:130px;
     font-size:2rem;
 }
+.modalLearnAgain{
+    position: fixed;
+    display:none;
+    top:0;
+    right:0;
+    bottom:0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+.modalLearnAgain.active{
+    display: flex;
+}
+.modalLearnAgain_container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 400px;
+    width:400px;
+    background-color: #fff;
+    position: relative;
+}
+.button_modalLearnAgain{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.learnAgain_btn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size:1.8rem;
+    width: 120px;
+    height: 60px;
+    background-color: #99e089;
+}
+.learnAgain_btn:hover{
+    cursor: pointer;
+    box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.1);
+}
+.title_modalLearnAgain{
+    font-size: 2.4rem;
+    font-weight: 500;
+}
 .wrap_course{
     position: relative;
 }
@@ -238,7 +285,7 @@
     min-height: 530px;
     width:1000px;
     background-color: #fff;
-
+    z-index: 10;
     position: relative;
 }
 .modal_course_close{
@@ -295,14 +342,14 @@
     font-weight: 600;
 }
 .body_method.learn{
-    background-color: rgb(132, 44, 44);
-    min-height:400px;
+    position: relative;
+    background-color: #fff;
+    height:400px;
     width: 90%;
-    margin-top:20px;
-    margin-left: 50px;
-    margin-right:50px;
-    margin-bottom:20px;
+    margin:20px 50px;
     display: none;
+    border-radius: 12px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 .body_method.flashcards{
     position: relative;
@@ -324,6 +371,7 @@
     margin-right:50px;
     margin-bottom:20px;
     display:none;
+    position: relative;
 }
 .body_method.active{
     display: block;
@@ -342,7 +390,6 @@
     
 }
 .new_voca{
-    margin-top:20%;
     font-size: 1.8rem;
     padding-left:16px;
     font-weight: 500;
@@ -351,25 +398,20 @@
     height:50px;
     width: 350px;
 }   
-.add_word_submit{
-    margin-top:60px;
+.add_word_submit{   
+    margin:30px 20px;
     border-radius: 20px;
     height: 50px;
     width: 170px;
-    background-color: #99e089;
+    background-color: #aae49a;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.8rem;
     font-weight: 600;
 }
-.add_word_submit_text{
-
-}
 .heading_new_word{
     display: flex;
-    height: 100%;
-    width: 100%;
     justify-content: center;
     align-items: center;
 }
@@ -391,6 +433,14 @@
     display: flex;
     justify-content: space-around;
 }
+@keyframes scaleAnimation{
+    from{
+        transform: scale(0.9);
+    }
+    to{
+        transform: scale(1);
+    }
+}
 .flashcard_wrap {
     position: relative;
     height: 99%;
@@ -398,6 +448,8 @@
     display: none;
     overflow: hidden;
     perspective: 1000px;
+    animation: scaleAnimation 0.2s ease-in;
+    animation-fill-mode: forwards;
 }
 .slide_item_flashcard {
     top:20px;
@@ -439,10 +491,199 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #58ea27;
-    margin: 0 15px;
+    background-color: #fff;
+    margin: 0 30px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
 }
-  
+.shiftingSlide_item:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.4);
+}
+.shiftingSlide_item.inuseal{
+    box-shadow: 0 0 0 0;
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.1);   
+}
+.page_flashcard{
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+.slide_item_flashcard_icon{
+    z-index: 1;
+    position: absolute;
+    top: 10px;;
+    right:30px;
+    font-size:1.8rem;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+}
+.slide_item_flashcard_icon:hover{
+    cursor: pointer;
+    color:rgb(108, 108, 247)
+}
+
+/* them tu */
+
+.addWord_wrap{
+    width:100%;
+    height:400px;
+    overflow: scroll;
+}
+.coupleWordElement_wrap{
+    position: relative;
+    box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.1);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    justify-content: center;
+    margin: 40px 20px;
+    border-radius: 12px;
+}
+.box_word{
+    border-right: 2px solid #81fa66;
+    border-left: 2px solid #81fa66;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    font-size: 1.8rem;
+    font-weight: 500;
+    height:100%;
+    width: 350px;
+}
+.penOfWord_left{
+    position: absolute;
+    left:30px;
+}
+.penOfWord_right{
+    position: absolute;
+    right: 30px;
+}
+
+.add_word_submit:hover{
+    cursor: pointer;
+    background-color: #81fa66;
+}
+.confirm_submit_word{
+    height: 50px;
+    width: 70px;
+    background-color: #0c100c;
+}
+.wrap_add_word_submit{
+    text-align:center;
+}
+
+/* hoc tu */
+
+.learn_container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.card_question{
+    font-size: 2.4rem;
+    position: absolute;
+    top: 20px;
+    left: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 200px;
+    height:100px;
+}
+.description_question{
+    margin-top:16px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height:60px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.1);
+}
+.card_answers{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.design_card_answers{
+    width: 100%;
+    margin:20px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.design_card_answers.top{
+    margin-top:50px;
+}
+.card_answer_item{
+    font-size: 2.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    min-width: 200px;
+    height:60px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.1);
+}
+.card_answer_item:hover{
+    cursor: pointer;
+    box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.1);
+}
+.card_answers_text{
+    font-size:2.4rem;
+}
+.card_answer_item.correct{
+    background-color: #81fa66;
+}
+.card_answer_item.incorrect{
+    background-color: #cc0404;
+}
+.noticeStatus{
+    position: absolute;
+    top: 20px;
+    right: 100px;
+    height: 100px;
+    width: 300px;
+    background-color: #aae49a;
+    font-size: 2.4rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius:12px;
+    box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+.noticeStatus.active{
+    animation: NoticeAnimation 0.5s ease-in;
+    display: flex;
+}
+@keyframes NoticeAnimation{
+    from{
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1.2;
+    }
+}
+.progressLearn{
+    position: absolute;
+    top:108px;
+    width: 350px;
+    /* background-color: #fff; */
+
+}
